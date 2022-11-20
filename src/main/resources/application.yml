@@ -1,0 +1,18 @@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/E-Commerce
+    username: postgres
+    password: jakobe
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  main:
+    allow-circular-references: true
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
