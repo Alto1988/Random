@@ -12,6 +12,21 @@ spring:
   main:
     allow-circular-references: true
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: CLIENT_ID
+            client-secret: CLIENT_SECRET
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/auth/realms/commerce
+          jwk-set-uri: http://localhost:8081/auth/realms/commerce/protocol/openid-connect/certs
+
+
+
+
 server:
   port: 8080
   error:
