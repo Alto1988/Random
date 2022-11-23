@@ -1,6 +1,7 @@
 package com.example.ecommerce.customer
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -22,7 +23,7 @@ class CustomerController(
 
 
     @PostMapping("/user")
-    fun createCustomer(@RequestBody userBody:CustomerEntity){
+    fun createCustomer(@RequestBody userBody:CustomerEntity): ResponseEntity.BodyBuilder {
         return customerService.createCustomer(userBody)
     }
 }
