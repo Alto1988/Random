@@ -3,6 +3,7 @@ package com.example.ecommerce.customer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 
@@ -14,7 +15,13 @@ class CustomerController(
 ) {
 
     @GetMapping("/user")
-    fun getCustomer(@RequestBody value:String): CustomerEntity{
-        return customerService.getCustomer(value)
+    fun getCustomer(@RequestBody userName:String): CustomerEntity{
+        return customerService.getCustomer(userName)
+    }
+
+
+
+    @PostMapping("/user")
+    fun createCustomer(@RequestBody userBody:CustomerEntity){
     }
 }

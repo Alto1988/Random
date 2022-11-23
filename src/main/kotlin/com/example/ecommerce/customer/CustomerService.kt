@@ -10,11 +10,7 @@ class CustomerService(
 ) {
 
 
-    fun getCustomer(value: String): CustomerEntity{
-        val customer = customerRepository.findCustomerEntitiesByUsernameOrPassword(value)
-//        if(value == null){
-//            return
-//        }
-        return customer
+    fun getCustomer(userName: String): CustomerEntity {
+        return customerRepository.findCustomerEntitiesByUsername(userName)
     }
 }

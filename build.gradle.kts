@@ -44,6 +44,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.7.5")
 // https://mvnrepository.com/artifact/org.springframework.security.oauth.boot/spring-security-oauth2-autoconfigure
     implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.6.8")
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation("org.modelmapper:modelmapper:3.1.0")
+
 
 }
 
