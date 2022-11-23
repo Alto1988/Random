@@ -13,4 +13,10 @@ class CustomerService(
     fun getCustomer(userName: String): CustomerEntity {
         return customerRepository.findCustomerEntitiesByUsername(userName)
     }
+
+    fun createCustomer(userBody: CustomerEntity) {
+       val checkUserExists:CustomerEntity = customerRepository.findCustomerEntitiesByUsername(userBody.username)
+        if(checkUserExists != null){
+
+        }
 }
