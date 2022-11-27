@@ -23,7 +23,7 @@ class CustomerController(
 
 
     @PostMapping("/user")
-    fun createCustomer(@RequestBody userBody:CustomerEntity): ResponseEntity.BodyBuilder {
+    fun createCustomer(@RequestBody userBody:CustomerEntity) {
         return customerService.createCustomer(userBody)
     }
 }

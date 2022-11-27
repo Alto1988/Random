@@ -1,8 +1,8 @@
 package com.example.ecommerce.customer
 
 import com.example.ecommerce.exceptions.InformationAlreadyExistsException
+import org.hibernate.annotations.common.util.impl.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,21 +11,20 @@ class CustomerService(
     var customerRepository: CustomerRepository
 ) {
 
+    private val logger = LoggerFactory.logger(CustomerService::class.java)
 
     fun getCustomer(userName: String): CustomerEntity {
         return customerRepository.findCustomerEntitiesByUsername(userName)
     }
 
-    fun createCustomer(userBody: CustomerEntity): ResponseEntity.BodyBuilder {
-        val checkUserExists: CustomerEntity = customerRepository.findCustomerEntitiesByUsername(userBody.username)
-        if (checkUserExists != null) {
-            InformationAlreadyExistsException()
-            return ResponseEntity.badRequest()
+    fun createCustomer(userBody: CustomerEntity) {
+        try {
+            val checkUserExists:CustomerEntity = customerRepository.findCustomerEntitiesByUsername(userBody.username)
+            if(checkUserExists == null) {
+                customerRepository.save(userBody)
+            }
+        }catch (e:InformationAlreadyExistsException) {
+            logger.info("Something was found! {}", e)
         }
-
-        TODO("Not Implemented Yet!!!")
-//        var createdUser: CustomerDto = CustomerDto
-
-
     }
 }
