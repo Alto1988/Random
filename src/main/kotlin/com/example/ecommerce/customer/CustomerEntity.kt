@@ -10,12 +10,11 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Data
 @Table(name = "customer")
 class CustomerEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long = 0,
     @Column
     var username: String,
 

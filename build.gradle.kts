@@ -46,6 +46,8 @@ dependencies {
     implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.6.8")
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation("org.modelmapper:modelmapper:3.1.0")
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin
+    compileOnly("org.projectlombok:lombok-maven-plugin:1.18.20.0")
 
 
 }
