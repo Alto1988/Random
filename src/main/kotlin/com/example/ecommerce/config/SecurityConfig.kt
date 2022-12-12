@@ -7,12 +7,15 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.web.server.ServerHttpSecurity.http
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.SecurityFilterChain
 
 
 @Configuration
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+class SecurityConfig {
+
 
 
         @Autowired
@@ -21,24 +24,33 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         @Autowired
         private lateinit var passwordEncoder: PasswordEncoder
 
-        @Throws(Exception::class)
-        override fun configure(http: HttpSecurity) {
-            http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/oauth/token").permitAll()
-                .anyRequest().authenticated()
-        }
+
+    @Bean
+    open fun filterChain(http: HttpSecurity): SecurityFilterChain {
+        http
+            .authorizeRequests { authorizeRequests ->
+                authorizeRequests
+                    .antMatchers("/api/v1/customer/**").permitAll()
+                    .anyRequest().authenticated()
+            }
+            .formLogin { formLogin ->
+                formLogin
+                    .loginPage("/login")
+                    .permitAll()
+            }
+            .logout { logout ->
+                logout
+                    .logoutUrl("/logout")
+                    .permitAll()
+            }
+        return http.build()
+    }
+
 
         @Throws(Exception::class)
-        override fun configure(auth: AuthenticationManagerBuilder) {
+        fun configure(auth: AuthenticationManagerBuilder) {
             auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder)
-        }
-
-        @Bean
-        @Throws(Exception::class)
-        override fun authenticationManagerBean(): AuthenticationManager {
-            return super.authenticationManagerBean()
         }
 
 }
